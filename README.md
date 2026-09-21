@@ -1,5 +1,3 @@
-Bien sûr. Voici le README GitFlow complet mis à jour, avec une table des matières fonctionnelle et l’ensemble des règles, workflows et checklists réunis dans un seul bloc Markdown prêt à copier.
-
 # GitFlow
 
 Ce document définit le workflow Git utilisé par l'équipe pour le développement, la préparation des releases et la gestion des correctifs de production.
