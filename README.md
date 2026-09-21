@@ -7,24 +7,20 @@ Ce document définit le workflow Git utilisé par l'équipe pour le développeme
 - #-branches
   - #rôle-des-branches
 - #-règles-générales
-- #-développer-une-fonctionnalité
-  - #1-mettre-à-jour-develop
-  - #2-créer-la-branche
+- [🚀évelopper-une-fonctionnalité
+  - [1-mettre-à-jour-develop
+  - [2. Créerla-branche
   - #3-développer-et-commiter
-  - #4-publier-la-branche
-  - #5-créer-une-pull-request
-- #-corriger-un-bug-hors-production
-- #-préparer-une-release
-- #-valider-une-release
-- #️-livrer-une-release
+  - [4. Publierla-branche
+  - [5. Créer une Pull Request](#5-créer-une-pull-request)
+- [🐛 Corriger un bug horslease
+- [🧪 Valider une release](#-livrer-une-release
   - #merge-vers-main
   - #synchronisation-avec-develop
-  - #checklist-de-livraison
-- #-corriger-un-problème-critique-en-production
-  - #1-créer-le-hotfix
-  - #2-effectuer-la-correction
-  - #3-livrer-le-hotfix
-- #-protection-des-branches
+  - [Checklist de livraison](#checklistger un problème critique en production - [1. Créer le hotfix](#1-créer-le-hotfix)
+ rection
+  - [3. Livrer le hotfix](#3-livrer-le-hotfix)
+- es
   - #main
   - #develop
 - #-cicd
@@ -33,12 +29,7 @@ Ce document définit le workflow Git utilisé par l'équipe pour le développeme
   - #bugfix
   - #release
   - #hotfix
-- #-les-5-règles-à-retenir
-- #-checklist-rapide-avant-une-pull-request
-
----
-
-## 🌿 Branches
+- [⭐ Les 5 règles à retenir](#-les-5-règles-à-retenir) une Pull Request](#-checklistranches
 
 Le projet utilise les branches suivantes :
 
@@ -193,164 +184,159 @@ Avant le merge :
 
 Lorsqu'une version est prête à être stabilisée, créer une branche `release/*` depuis `develop`.
 
-Exemple pour la version `2.4.0` :
+Exemple pour *a version `2.4.0` :
 
 ```bash
-git switch develop
-git pull origin develop
+git s*itch develop
+git pull origin devel*p
 
 git switch -c release/2.4.0
-git push -u origin release/2.4.0
+git*push -u origin release/2.4.0
 ```
 
-Le workflow devient :
+*e workflow devient :
 
 ```text
-develop ───────────────────────→ prochaine version
+deve*op ───────────────────────→ procha*ne version
      \
-      release/2.4.0 ───────────→ stabilisation
+      release/2.*.0 ───────────→ stabilisation
 ```
+*### Checklist de création
 
-### Checklist de création
-
-- [ ] Toutes les features prévues sont dans `develop`.
-- [ ] La CI de `develop` est verte.
-- [ ] Les tests passent.
-- [ ] Aucun ticket bloquant connu n'est ouvert.
-- [ ] Le numéro de version est défini.
-- [ ] `release/<version>` est créée depuis `develop`.
+- [ ] T*utes les features prévues sont dan* `develop`.
+- [ ] La CI de `develo*` est verte.
+- [ ] Les tests passe*t.
+- [ ] Aucun ticket bloquant con*u n'est ouvert.
+- [ ] Le numéro de*version est défini.
+- [ ] `release*<version>` est créée depuis `devel*p`.
 
 ---
 
-## 🧪 Valider une release
+## 🧪 Valider une releas*
 
 Pendant la stabilisation :
 
-- [ ] Vérifier le numéro de version.
-- [ ] Exécuter les tests unitaires.
-- [ ] Exécuter les tests d'intégration.
-- [ ] Exécuter les tests fonctionnels.
-- [ ] Tester les éventuelles migrations.
-- [ ] Déployer la release en recette/staging.
-- [ ] Corriger les bugs bloquants directement sur `release/*`.
-- [ ] Préparer les release notes.
-- [ ] Obtenir la validation QA/métier.
+- [ * Vérifier le numéro de version.
+- * ] Exécuter les tests unitaires.
+-*[ ] Exécuter les tests d'intégrati*n.
+- [ ] Exécuter les tests foncti*nnels.
+- [ ] Tester les éventuelle* migrations.
+- [ ] Déployer la rel*ase en recette/staging.
+- [ ] Corr*ger les bugs bloquants directement*sur `release/*`.
+- [ ] Préparer le* release notes.
+- [ ] Obtenir la v*lidation QA/métier.
 
-> ⚠️ **Aucune nouvelle fonctionnalité ne doit être ajoutée à une branche `release/*`.**
+> ⚠️ **Aucune*nouvelle fonctionnalité ne doit êt*e ajoutée à une branche `release/**.**
 
-Les nouvelles fonctionnalités continuent leur développement à partir de `develop` pour une prochaine release.
+Les nouvelles fonctionnalités*continuent leur développement à pa*tir de `develop` pour une prochain* release.
 
 ---
 
-## 🏷️ Livrer une release
+## 🏷️ Livrer une *elease
 
-Une release validée doit être mergée dans **`main` et `develop`**.
+Une release validée doit ê*re mergée dans **`main` et `develo*`**.
 
 ```text
-                 release/2.4.0
-                    /       \
-                   ▼         ▼
-                 main     develop
-                   │
-                   ▼
+                 rel*ase/2.4.0
+                    /   *   \
+                   ▼         *
+                 main     develop*                   │
+             *     ▼
                 v2.4.0
 ```
+*### Merge vers `main`
 
-### Merge vers `main`
-
-Créer une Pull Request :
+Créer une P*ll Request :
 
 ```text
-release/2.4.0
+release/2.4.*
       ↓
      main
 ```
 
-Une fois la Pull Request validée et mergée, mettre `main` à jour :
+Une fois l* Pull Request validée et mergée, m*ttre `main` à jour :
 
 ```bash
-git switch main
+git *witch main
 git pull origin main
-```
+``*
 
-Puis créer le tag correspondant à la version :
+Puis créer le tag correspondant * la version :
 
 ```bash
-git tag -a v2.4.0 -m "Release 2.4.0"
-git push origin v2.4.0
+git tag -a *2.4.0 -m "Release 2.4.0"
+git push *rigin v2.4.0
 ```
 
-### Synchronisation avec `develop`
+### Synchronisat*on avec `develop`
 
-Créer également une Pull Request :
+Créer également*une Pull Request :
 
 ```text
-release/2.4.0
+releas*/2.4.0
       ↓
    develop
 ```
 
-Cela permet de récupérer dans `develop` les éventuelles corrections réalisées pendant la stabilisation.
+Cel* permet de récupérer dans `develop* les éventuelles corrections réali*ées pendant la stabilisation.
 
-### Checklist de livraison
+###*Checklist de livraison
 
-- [ ] `release/*` est mergée dans `main`.
-- [ ] La CI de `main` est verte.
-- [ ] Le tag `vX.Y.Z` est créé.
-- [ ] La release est déployée en production.
-- [ ] `release/*` est également mergée dans `develop`.
-- [ ] Les corrections de recette sont présentes dans `develop`.
-- [ ] Les release notes sont publiées.
-- [ ] La branche `release/*` est supprimée.
+- [ ] `rel*ase/*` est mergée dans `main`.
+- [*] La CI de `main` est verte.
+- [ ]*Le tag `vX.Y.Z` est créé.
+- [ ] La*release est déployée en production*
+- [ ] `release/*` est également m*rgée dans `develop`.
+- [ ] Les cor*ections de recette sont présentes *ans `develop`.
+- [ ] Les release n*tes sont publiées.
+- [ ] La branch* `release/*` est supprimée.
 
 ---
 
-## 🚨 Corriger un problème critique en production
+*# 🚨 Corriger un problème critique*en production
 
-Un `hotfix` est utilisé pour corriger rapidement un problème critique déjà présent en production.
+Un `hotfix` est uti*isé pour corriger rapidement un pr*blème critique déjà présent en pro*uction.
 
-Un hotfix doit toujours partir de `main`.
+Un hotfix doit toujours p*rtir de `main`.
 
-### 1. Créer le hotfix
+### 1. Créer le h*tfix
 
 Mettre `main` à jour :
 
-```bash
+```b*sh
 git switch main
-git pull origin main
+git pull origin*main
 ```
 
-Créer ensuite la branche :
+Créer ensuite la branche*:
 
 ```bash
-git switch -c hotfix/2.4.1
+git switch -c hotfix/2.*.1
 ```
 
-### 2. Effectuer la correction
+### 2. Effectuer la correc*ion
 
 ```bash
 git add .
-git commit -m "fix: correct production issue"
-
-git push -u origin hotfix/2.4.1
-```
+git commit *m "fix: correct production issue"
+*git push -u origin hotfix/2.4.1
+``*
 
 Checklist :
 
-- [ ] Limiter la modification au strict nécessaire.
-- [ ] Ajouter ou corriger les tests.
-- [ ] Vérifier les régressions potentielles.
-- [ ] Faire une code review.
+- [ ] Limiter la mo*ification au strict nécessaire.
+- * ] Ajouter ou corriger les tests.
+* [ ] Vérifier les régressions pote*tielles.
+- [ ] Faire une code revi*w.
 - [ ] Vérifier la CI.
-- [ ] Valider le correctif avant la mise en production.
+- [ ] Val*der le correctif avant la mise en *roduction.
 
-### 3. Livrer le hotfix
+### 3. Livrer le hotfi*
 
-Le hotfix doit être intégré dans `main` **et** `develop`.
+Le hotfix doit être intégré dans*`main` **et** `develop`.
 
 ```text
-                       hotfix/2.4.1
-                       /          \
+*                      hotfix/2.4.1*                       /          \
                       ▼            ▼
                     main        develop
                       │
@@ -381,20 +367,19 @@ Puis :
 - [ ] Vérifier que `develop` contient bien le correctif.
 - [ ] Supprimer la branche `hotfix/*`.
 
-> **Important :** ne jamais oublier le merge vers `develop`. Sans celui-ci, le correctif de production pourrait disparaître lors d'une future release.
+> **Important :** ne jamais o*blier le merge vers `develop`. San* celui-ci, le correctif de product*on pourrait disparaître lors d'une*future release.
 
 ---
 
-## 🔐 Protection des branches
+## 🔐 Protec*ion des branches
 
 ### `main`
 
-La branche `main` doit être protégée :
-
-- [ ] Push direct interdit.
-- [ ] Pull Request obligatoire.
-- [ ] CI obligatoire.
-- [ ] Tests obligatoires.
+La b*anche `main` doit être protégée :
+*- [ ] Push direct interdit.
+- [ ] *ull Request obligatoire.
+- [ ] CI *bligatoire.
+- [ ] Tests obligatoir*s.
 - [ ] Review obligatoire.
 - [ ] Conversations bloquantes résolues avant merge.
 - [ ] Branche protégée contre la suppression.
@@ -651,9 +636,3 @@ Avant de demander une review :
 | `hotfix/*` | `main` | `main` + `develop` | Correction urgente en production |
 
 **Règle fondamentale : `main` doit toujours représenter l'état de la production.**
-
-Améliorations apportées
-Table des matières : les liens sont maintenant de vrais liens Markdown cliquables plutôt que de simples ancres.
-Cohérence : les workflows feature, bugfix, release et hotfix suivent tous la même structure.
-Utilisation en équipe : ajout d'un aide-mémoire final pour retrouver immédiatement la branche source et la cible.
-Lisibilité : les procédures détaillées restent accompagnées d'une checklist courte utilisable pendant les PR et les releases.
